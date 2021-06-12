@@ -81,6 +81,12 @@
         android:id="@+id/btnmsn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Agregar Mensaje" />
+        android:text="Agregar Mensaje agradable" />
+
+    <Button
+        android:id="@+id/btnmsn2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Agregar Mensaje no agradable" />
 
 </LinearLayout>

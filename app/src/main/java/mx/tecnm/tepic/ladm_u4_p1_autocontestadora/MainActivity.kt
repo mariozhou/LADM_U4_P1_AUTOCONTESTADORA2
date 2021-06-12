@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val btncontacto = findViewById<Button>(R.id.btncontacto)
         val btnmsn = findViewById<Button>(R.id.btnmsn)
+        val btnmsn2 = findViewById<Button>(R.id.btnmsn2)
 
         asignarAccesos()
 
@@ -27,6 +28,11 @@ class MainActivity : AppCompatActivity() {
 
         btnmsn.setOnClickListener {
             agregarMsn()
+
+
+        }
+
+        btnmsn2.setOnClickListener {
             agregarMsnoagra()
         }
 
@@ -41,15 +47,14 @@ class MainActivity : AppCompatActivity() {
             .addOnSuccessListener { documents ->
                 mns = ""
                 for (document in documents) {
-                    //    var mensaje = "${document.id}"
                     mns =  "${document.id}"
                 }
                 baseFirebase.collection("Mensajes")
                     .document("${mns}")
                     .update("Mensaje", mnsnoagradable.text.toString())
-                    .addOnSuccessListener { documentReference -> }
+                mnsnoagradable.setText("")
             }
-        mnsnoagradable.setText("")
+
     }
 
     private fun agregarMsn() {
@@ -61,15 +66,14 @@ class MainActivity : AppCompatActivity() {
             .addOnSuccessListener { documents ->
                 mns = ""
                 for (document in documents) {
-                //    var mensaje = "${document.id}"
                     mns =  "${document.id}"
                 }
                 baseFirebase.collection("Mensajes")
                     .document("${mns}")
                     .update("Mensaje", mnsagradable.text.toString())
-                    .addOnSuccessListener { documentReference -> }
+                mnsagradable.setText("")
             }
-        mnsagradable.setText("")
+
     }
 
     private fun asignarAccesos() {
@@ -77,7 +81,12 @@ class MainActivity : AppCompatActivity() {
         if (permission != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_PHONE_STATE), 1)
         }
-
+         if (ActivityCompat.checkSelfPermission(this,android.Manifest.permission.SEND_SMS)!=PackageManager.PERMISSION_GRANTED){
+        ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.SEND_SMS),1)
+         }
+          if(ActivityCompat.checkSelfPermission(this,android.Manifest.permission.READ_CALL_LOG)!=PackageManager.PERMISSION_GRANTED){
+        ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_CALL_LOG),1)
+        }
     }
 
     override fun onRequestPermissionsResult(
@@ -100,25 +109,20 @@ class MainActivity : AppCompatActivity() {
         if(RAgradable.isChecked ){
             var insertar = hashMapOf(
                 "Nombre" to ednombre.text.toString(),
-                "Celular" to "+52"+ednumero.text.toString(),
+                "Celular" to ednumero.text.toString(),
                 "Agradable" to true
             )
             baseFirebase.collection("Contactos")
                 .add(insertar)
-                .addOnSuccessListener { documentReference ->
-                }
         }
         if(RNoAgradable.isChecked){
             var insertar = hashMapOf(
                 "Nombre" to ednombre.text.toString(),
-                "Celular" to "+52"+ednumero.text.toString(),
-                "Agradable" to true
+                "Celular" to ednumero.text.toString(),
+                "Agradable" to false
             )
             baseFirebase.collection("Contactos")
                 .add(insertar)
-
-                .addOnSuccessListener { documentReference ->
-                }
         }
         limpiarcontacto()
     }

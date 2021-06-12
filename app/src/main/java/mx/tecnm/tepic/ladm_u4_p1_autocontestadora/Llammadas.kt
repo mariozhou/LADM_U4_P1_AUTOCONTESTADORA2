@@ -46,8 +46,8 @@ class Llammadas :BroadcastReceiver(){
                                             }
                                             SmsManager.getDefault().sendTextMessage(numero,
                                                 null, msn, null, null)
-                                            Toast.makeText(context, "Mensaje Enviado Agradable: \n"
-                                                  +  "[${msn}] \n", Toast.LENGTH_LONG)
+                                            Toast.makeText(context, "Mensaje Enviado Agradable: \n"+
+                                                   "[${msn}] \n", Toast.LENGTH_LONG)
                                                 .show()
                                         }
                                 }
@@ -62,8 +62,8 @@ class Llammadas :BroadcastReceiver(){
 
                                             SmsManager.getDefault().sendTextMessage(numero,
                                                 null, msn, null, null)
-                                            Toast.makeText(context, "Mensaje Enviado No agradable \n"
-                                                    + "[${msn}] \n"
+                                            Toast.makeText(context, "Mensaje Enviado No agradable \n"+
+                                                     "[${msn}] \n"
                                                     , Toast.LENGTH_LONG)
                                                 .show()
                                         }
